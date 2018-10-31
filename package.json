@@ -9,11 +9,13 @@
     "lint": "./node_modules/.bin/eslint ./src"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint ./src",
-      "prettier --write",
-      "git add"
-    ],
+    "linters": {
+      "*.js": [
+        "eslint ./src",
+        "prettier --write",
+        "git add"
+      ]
+    },
     "ignore": [
       "**/dist/*.js"
     ]
