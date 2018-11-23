@@ -6,17 +6,10 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      recipes: [],
       currentRecipe: null,
     };
 
     this.onRecipeClick = this.onRecipeClick.bind(this);
-  }
-
-  componentDidMount() {
-    fetch(`${API_URL}/v1/recipes`)
-      .then(res => res.json())
-      .then(recipes => this.setState({ recipes }));
   }
 
   onRecipeClick(id) {
@@ -26,11 +19,15 @@ class Home extends React.Component {
   }
 
   render() {
-    const { recipes, currentRecipe } = this.state;
+    const { toggleFavorites, recipes, favorites } = this.props;
+    const { currentRecipe } = this.state;
     return (
       <div>
+        <h2 className="px4"> RecipesList</h2>
         <main className="px4 flex">
           <RecipesList
+            favorites={favorites}
+            favoriteChanged={toggleFavorites}
             onRecipeClick={this.onRecipeClick}
             recipes={recipes}
             style={{ flex: 3 }}

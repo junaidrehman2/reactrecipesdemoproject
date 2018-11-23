@@ -4,21 +4,28 @@ import PropTypes from 'prop-types';
 const RecipesList = props => {
   const { style, recipes } = props;
   return (
-    <div style={style}>
-      <h2> RecipesList</h2>
-      <ul className="list-reset">
-        {recipes.map(recipe => (
-          <li
-            className="py2 border-bottom border-bottom-dashed pointer"
-            key={recipe.id}
-            onClick={() => props.onRecipeClick(recipe.id)}
+    <ul style={style} className="list-reset">
+      {recipes.map(recipe => (
+        <li
+          className="py2 border-bottom border-bottom-dashed pointer"
+          key={recipe.id}
+          onClick={() => props.onRecipeClick(recipe.id)}
+        >
+          <span
+            className="p1"
+            role="img"
+            onClick={e => {
+              e.stopPropagation();
+              props.favoriteChanged(recipe.id);
+            }}
           >
-            <span>{recipe.name}</span>
-            <span>{recipe.category}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+            {props.favorites.includes(recipe.id) ? '☑️' : '⬜️'}
+          </span>
+          <span>{recipe.name}</span>
+          <span>{recipe.category}</span>
+        </li>
+      ))}
+    </ul>
   );
 };
 
